@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs  # 로그 디렉토리 마운트
+    restart: always

@@ -413,6 +413,25 @@ func (bot *TradingBot) StartTrading(interval time.Duration) {
 	bot.cancelFunc = cancel
 }
 
+// 5. StopTrading 함수 추가
+func (bot *TradingBot) StopTrading() {
+	bot.mu.Lock()
+	defer bot.mu.Unlock()
+
+	if !bot.isRunning {
+		bot.logger.Info("Trading bot is not running")
+		return
+	}
+
+	if bot.cancelFunc != nil {
+		bot.cancelFunc()
+		bot.cancelFunc = nil
+	}
+
+	bot.isRunning = false
+	bot.logger.Info("Trading stopped")
+}
+
 // Market Event 구조체
 type MarketEvent struct {
 	Warning bool   `json:"warning"` // 유의종목 여부

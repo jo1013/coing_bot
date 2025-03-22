@@ -27,7 +27,7 @@ COPY --from=builder /build/trading-bot .
 # 실행 파일 권한 설정
 RUN chmod +x /app/trading-bot
 
-EXPOSE 8080
+EXPOSE 8888
 
 # 실행
 CMD ["/app/trading-bot"]
